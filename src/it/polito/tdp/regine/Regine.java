@@ -10,7 +10,11 @@ import java.util.List;
  *
  */
 public class Regine {
-
+	/**
+	 * Posiziona regina su scacchiera di dimensione N. 
+	 * @param N dimensione della scacchiera
+	 * @return
+	 */
 	public List<Integer> posiziona(int N) {
 
 		List<Integer> soluzione = new ArrayList<Integer>();
@@ -41,12 +45,15 @@ public class Regine {
 			// caso terminale, soluzione trovata
 			return true;
 		}
-
-		for (int mossa = 0; mossa < N; mossa++) {
+				
+		for (int mossa = 0; mossa < N; mossa++) { //le mosse possibili sono le colonne nella scacchiera
 			if (posizioneSicura(scacchiera, livello, N, mossa)) {
 				scacchiera.add(mossa);
 				if (cerca(scacchiera, N, livello + 1))
-					return true;
+					return true; 
+				//così appena ricevo un true da un livello annidato, cioè ha trovato la soluzione
+				//si ferma tutto dopo aver trovato la prima soluzione
+				//non faccio backtrack così da avere in memoria la soluzione appena trovato
 				scacchiera.remove(livello);
 			}
 		}
@@ -55,7 +62,7 @@ public class Regine {
 
 	private boolean posizioneSicura(List<Integer> scacchiera, int livello, int n, int mossa) {
 
-		for (int riga = 0; riga < livello; riga++) {
+		for (int riga = 0; riga < livello; riga++) {//guardo tutte le righe precedenti a quella della mossa
 
 			// colonne
 			if (scacchiera.get(riga) == mossa)
@@ -83,7 +90,7 @@ public class Regine {
  * 
  * 
  * 
- * [Q] --> R2=livello, C2=mossa
+ * 			[Q] --> R2=livello, C2=mossa
  * 
  * Diagonale destra: R1-C1 == R2-C2
  * 
